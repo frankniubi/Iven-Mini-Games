@@ -17,3 +17,4 @@ tools/preview-tiles.html
 
 # iOS distribution signing (private key) — local only, CI gets it from encrypted secrets
 native/ios/signing/
+__pycache__/
