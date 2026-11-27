@@ -15,18 +15,24 @@ concurrency:
 
 jobs:
   build:
-    runs-on: macos-latest
+    # App Store Connect wants the newest SDK: build with Xcode 27.1 / iOS 27.1 SDK.
+    runs-on: xcode-27
     timeout-minutes: 60
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_27.1.app/Contents/Developer
     defaults:
       run:
         working-directory: native
     steps:
       - uses: actions/checkout@v4
 
-      - name: Select latest stable Xcode
-        uses: maxim-lobanov/setup-xcode@v1
-        with:
-          xcode-version: latest-stable
+      - name: Require Xcode 27.1 / iOS 27.1 SDK
+        run: |
+          xcodebuild -version
+          sdk="$(xcrun --sdk iphoneos --show-sdk-version)"
+          echo "iphoneos SDK $sdk"
+          lowest="$(printf '27.1\n%s\n' "$sdk" | sort -t. -k1,1n -k2,2n | head -1)"
+          [ "$lowest" = "27.1" ] || { echo "::error::iOS SDK $sdk is older than 27.1"; exit 1; }
 
       - uses: actions/setup-node@v4
         with:
