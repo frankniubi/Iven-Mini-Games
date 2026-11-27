@@ -14,3 +14,6 @@ node_modules/
 tools/deploy.py
 tools/preview-tiles.html
 *.log
+
+# iOS distribution signing (private key) — local only, CI gets it from encrypted secrets
+native/ios/signing/
