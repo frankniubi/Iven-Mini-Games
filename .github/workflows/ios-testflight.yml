@@ -28,6 +28,7 @@ jobs:
       ASC_KEY_P8: ${{ secrets.ASC_KEY_P8 }}
     steps:
       - name: Check secrets
+        working-directory: .
         run: |
           missing=""
           for v in APPLE_TEAM_ID ASC_KEY_ID ASC_ISSUER_ID ASC_KEY_P8; do [ -n "${!v}" ] || missing="$missing $v"; done
@@ -96,4 +97,5 @@ jobs:
 
       - name: Remove API key
         if: always()
+        working-directory: .
         run: rm -rf "$RUNNER_TEMP/keys"
