@@ -1,0 +1,48 @@
+{
+  "name": "minigames-native",
+  "private": true,
+  "version": "1.0.0",
+  "versionCode": 1,
+  "description": "小游戏大厅 native shell (Capacitor 8, Android + iOS). versionName = \"version\", versionCode = \"versionCode\".",
+  "type": "module",
+  "scripts": {
+    "vendor": "node scripts/build-vendor.mjs",
+    "www": "node scripts/build-www.mjs",
+    "www:android": "node scripts/build-www.mjs --platform android",
+    "www:ios": "node scripts/build-www.mjs --platform ios",
+    "www:nosync": "node scripts/build-www.mjs --no-sync",
+    "sync": "node scripts/cap.mjs sync",
+    "sync:android": "node scripts/cap.mjs sync android",
+    "sync:ios": "node scripts/cap.mjs sync ios",
+    "version:sync": "node scripts/sync-version.mjs",
+    "assets": "node scripts/gen-assets.mjs",
+    "android:debug": "node scripts/gradle.mjs assembleDebug",
+    "android:release": "node scripts/gradle.mjs assembleRelease",
+    "android:clean": "node scripts/gradle.mjs clean",
+    "apk": "node scripts/build-apk.mjs release",
+    "apk:debug": "node scripts/build-apk.mjs debug",
+    "ios:unsigned": "bash scripts/build-ios-unsigned.sh",
+    "open:android": "node scripts/cap.mjs open android",
+    "open:ios": "node scripts/cap.mjs open ios"
+  },
+  "dependencies": {
+    "@capacitor-community/keep-awake": "8.0.1",
+    "@capacitor/android": "8.6.3",
+    "@capacitor/app": "8.1.2",
+    "@capacitor/core": "8.6.3",
+    "@capacitor/file-transfer": "2.0.6",
+    "@capacitor/filesystem": "8.1.5",
+    "@capacitor/haptics": "8.0.2",
+    "@capacitor/ios": "8.6.3",
+    "@capacitor/screen-orientation": "8.0.2",
+    "@capacitor/status-bar": "8.0.4",
+    "@capgo/capacitor-bluetooth-low-energy": "8.2.9",
+    "@mhaberler/capacitor-zeroconf-nsd": "5.1.0",
+    "capacitor-tcp-socket": "8.0.0"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "8.6.3",
+    "esbuild": "0.28.2",
+    "sharp": "0.35.5"
+  }
+}

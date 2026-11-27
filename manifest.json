@@ -1,0 +1,18 @@
+{
+  "name": "小游戏大厅 · Arcade Box",
+  "short_name": "小游戏大厅",
+  "description": "私人内网 HTML5 小游戏大厅 — 软体物理数字合成 Sobosuba 及更多小游戏",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#FFF8F2",
+  "theme_color": "#FFF8F2",
+  "icons": [
+    {
+      "src": "./assets/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

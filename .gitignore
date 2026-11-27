@@ -1,0 +1,16 @@
+# Third-party game builds are not ours to publish. The website serves them, and the app downloads
+# them on its first ⇅ sync (their wrappers show a "sync first" card until then).
+games/pvz/app/
+games/temple-run/app/
+
+# Generated
+sync-manifest.json
+core/vendor/capacitor.js
+download/*.apk
+node_modules/
+
+# Local tooling state and server access (deploy script holds the server address)
+.gstack/
+tools/deploy.py
+tools/preview-tiles.html
+*.log

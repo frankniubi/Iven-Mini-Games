@@ -1,0 +1,99 @@
+# Builds a signed iOS release with automatic signing and uploads it to App Store Connect / TestFlight.
+# Run it from the Actions tab ("Run workflow"). Needs these repository secrets:
+#   APPLE_TEAM_ID   10-character Team ID (developer.apple.com → Membership details)
+#   ASC_KEY_ID      App Store Connect API key ID
+#   ASC_ISSUER_ID   App Store Connect API issuer ID
+#   ASC_KEY_P8      full text of the AuthKey_XXXXXXXXXX.p8 file
+# and an app record in App Store Connect with bundle ID cc.mcbar.minigames.
+name: iOS TestFlight
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: ios-testflight
+  cancel-in-progress: false
+
+jobs:
+  upload:
+    runs-on: macos-latest
+    timeout-minutes: 60
+    defaults:
+      run:
+        working-directory: native
+    env:
+      APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+      ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
+      ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
+      ASC_KEY_P8: ${{ secrets.ASC_KEY_P8 }}
+    steps:
+      - name: Check secrets
+        run: |
+          missing=""
+          for v in APPLE_TEAM_ID ASC_KEY_ID ASC_ISSUER_ID ASC_KEY_P8; do [ -n "${!v}" ] || missing="$missing $v"; done
+          if [ -n "$missing" ]; then echo "::error::Missing repository secrets:$missing (see the comment at the top of this workflow)"; exit 1; fi
+
+      - uses: actions/checkout@v4
+
+      - name: Select latest stable Xcode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: native/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build www + cap sync ios
+        run: npm run www:ios
+
+      - name: Write API key
+        run: |
+          mkdir -p "$RUNNER_TEMP/keys"
+          printf '%s\n' "$ASC_KEY_P8" > "$RUNNER_TEMP/keys/AuthKey_${ASC_KEY_ID}.p8"
+
+      - name: Archive (automatic signing)
+        run: |
+          xcodebuild -version
+          xcodebuild \
+            -project ios/App/App.xcodeproj -scheme App -configuration Release \
+            -destination 'generic/platform=iOS' \
+            -archivePath "$RUNNER_TEMP/App.xcarchive" \
+            -skipPackagePluginValidation -skipMacroValidation \
+            -allowProvisioningUpdates \
+            -authenticationKeyPath "$RUNNER_TEMP/keys/AuthKey_${ASC_KEY_ID}.p8" \
+            -authenticationKeyID "$ASC_KEY_ID" -authenticationKeyIssuerID "$ASC_ISSUER_ID" \
+            DEVELOPMENT_TEAM="$APPLE_TEAM_ID" CODE_SIGN_STYLE=Automatic \
+            CURRENT_PROJECT_VERSION="${{ github.run_number }}" \
+            archive
+
+      - name: Upload to App Store Connect
+        run: |
+          cat > "$RUNNER_TEMP/ExportOptions.plist" <<PLIST
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0"><dict>
+            <key>method</key><string>app-store-connect</string>
+            <key>destination</key><string>upload</string>
+            <key>teamID</key><string>${APPLE_TEAM_ID}</string>
+            <key>signingStyle</key><string>automatic</string>
+            <key>manageAppVersionAndBuildNumber</key><false/>
+          </dict></plist>
+          PLIST
+          xcodebuild -exportArchive \
+            -archivePath "$RUNNER_TEMP/App.xcarchive" \
+            -exportOptionsPlist "$RUNNER_TEMP/ExportOptions.plist" \
+            -exportPath "$RUNNER_TEMP/export" \
+            -allowProvisioningUpdates \
+            -authenticationKeyPath "$RUNNER_TEMP/keys/AuthKey_${ASC_KEY_ID}.p8" \
+            -authenticationKeyID "$ASC_KEY_ID" -authenticationKeyIssuerID "$ASC_ISSUER_ID"
+          echo "Uploaded build ${{ github.run_number }}; it appears in TestFlight after Apple finishes processing (usually 5–30 min)."
+
+      - name: Remove API key
+        if: always()
+        run: rm -rf "$RUNNER_TEMP/keys"

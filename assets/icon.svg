@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FFE8F0"/>
+      <stop offset="50%" stop-color="#FFF4E6"/>
+      <stop offset="100%" stop-color="#E6F4FF"/>
+    </linearGradient>
+    <radialGradient id="blobMain" cx="38%" cy="32%" r="65%">
+      <stop offset="0%" stop-color="#FF9BB8"/>
+      <stop offset="65%" stop-color="#FF6B97"/>
+      <stop offset="100%" stop-color="#E54D7B"/>
+    </radialGradient>
+    <radialGradient id="blobSmall" cx="38%" cy="32%" r="65%">
+      <stop offset="0%" stop-color="#FFE08A"/>
+      <stop offset="65%" stop-color="#FFB84D"/>
+      <stop offset="100%" stop-color="#EB9426"/>
+    </radialGradient>
+  </defs>
+  <rect width="512" height="512" rx="116" fill="url(#bg)"/>
+  <!-- Squishy big pink jelly blob -->
+  <path d="M 278 134 C 365 130, 422 190, 418 272 C 414 358, 354 406, 268 408 C 180 410, 126 364, 126 284 C 126 202, 186 138, 278 134 Z" fill="url(#blobMain)"/>
+  <!-- Specular highlight -->
+  <ellipse cx="222" cy="196" rx="46" ry="22" transform="rotate(-24 222 196)" fill="#FFFFFF" opacity="0.48"/>
+  <circle cx="176" cy="236" r="10" fill="#FFFFFF" opacity="0.4"/>
+  <!-- Cute eyes -->
+  <circle cx="232" cy="242" r="10" fill="#3D1827"/>
+  <circle cx="229" cy="238" r="3.5" fill="#FFFFFF"/>
+  <circle cx="314" cy="242" r="10" fill="#3D1827"/>
+  <circle cx="311" cy="238" r="3.5" fill="#FFFFFF"/>
+  <!-- Number 64 -->
+  <text x="273" y="346" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Rounded', 'Nunito', sans-serif" font-weight="800" font-size="92" fill="#FFFFFF">64</text>
+  <!-- Mini golden buddy blob -->
+  <path d="M 142 108 C 184 104, 212 134, 208 172 C 204 208, 174 226, 134 224 C 94 222, 72 194, 74 158 C 76 124, 102 112, 142 108 Z" fill="url(#blobSmall)"/>
+  <ellipse cx="116" cy="138" rx="20" ry="10" transform="rotate(-20 116 138)" fill="#FFFFFF" opacity="0.5"/>
+  <text x="141" y="185" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Rounded', 'Nunito', sans-serif" font-weight="800" font-size="48" fill="#FFFFFF">2</text>
+</svg>

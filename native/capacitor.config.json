@@ -1,0 +1,19 @@
+{
+  "appId": "cc.mcbar.minigames",
+  "appName": "小游戏大厅",
+  "webDir": "www",
+  "backgroundColor": "#FFF8F2",
+  "android": {
+    "path": "android"
+  },
+  "ios": {
+    "path": "ios",
+    "contentInset": "never"
+  },
+  "plugins": {
+    "SystemBars": {
+      "insetsHandling": "css",
+      "initialViewportFitValueHint": "cover"
+    }
+  }
+}

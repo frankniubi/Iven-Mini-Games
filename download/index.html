@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>下载小游戏大厅 App</title>
+  <link rel="icon" type="image/svg+xml" href="../assets/icon.svg" />
+  <style>
+    :root { --accent: #FF5888; }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; background: #FFF8F2; color: #2B1F27; }
+    main { max-width: 560px; margin: 0 auto; padding: calc(24px + env(safe-area-inset-top)) 18px 40px; }
+    header { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
+    header img { width: 56px; height: 56px; border-radius: 14px; }
+    h1 { margin: 0; font-size: 24px; }
+    header p { margin: 2px 0 0; color: #6E5D66; font-size: 14px; }
+    .card { background: #fff; border-radius: 20px; padding: 18px; margin-bottom: 14px; box-shadow: 0 10px 28px rgba(84, 46, 62, 0.08); }
+    .card h2 { margin: 0 0 6px; font-size: 18px; }
+    .card p, .card li { color: #4E3F48; font-size: 14.5px; line-height: 1.7; }
+    .card ol { padding-left: 20px; margin: 8px 0 0; }
+    .btn { display: flex; align-items: center; justify-content: center; gap: 8px; height: 50px; border-radius: 999px; background: linear-gradient(135deg, #FF759F, #FF5888); color: #fff; font-weight: 800; font-size: 17px; text-decoration: none; margin-top: 10px; box-shadow: 0 8px 20px rgba(255, 107, 151, 0.34); }
+    .muted { color: #9B8A93; font-size: 13px; }
+    .tag { display: inline-block; font-size: 12px; font-weight: 700; padding: 2px 8px; border-radius: 999px; background: #F1E7EC; color: #6E5D66; margin-left: 6px; vertical-align: 2px; }
+    a.back { color: #6E5D66; font-size: 14px; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <main>
+    <a class="back" href="../">← 回到网页版大厅</a>
+    <header>
+      <img src="../assets/icon.svg" alt="" />
+      <div>
+        <h1>小游戏大厅 App</h1>
+        <p>全部游戏装进手机，断网也能玩；斗地主、太仓麻将可以用同一 Wi‑Fi 或蓝牙一起打。</p>
+      </div>
+    </header>
+
+    <section class="card">
+      <h2>安卓 Android <span class="tag" id="apk-size">约 180 MB</span></h2>
+      <p>用手机浏览器打开本页，点下面按钮下载，下载完点开安装。第一次安装时手机会提示「允许安装未知来源应用」，在弹出的设置里允许一次即可。</p>
+      <a class="btn" id="apk-link" href="./minigames-1.0.0.apk" download>⬇ 下载安卓安装包</a>
+      <p class="muted">这是自己签名的测试版，没有上架应用商店，安装时出现风险提示属于正常情况。以后有新版本，用同一个下载地址覆盖安装，存档会保留。</p>
+    </section>
+
+    <section class="card">
+      <h2>苹果 iPhone / iPad <span class="tag">需要签名</span></h2>
+      <p>苹果不允许安装没有签名的 App，所以 iOS 版现在还不能像安卓一样直接下载安装。已经做好的工程可以：</p>
+      <ol>
+        <li>用 Mac 上的 Xcode 打开，用自己的 Apple ID 签名后装到手机上（免费账号 7 天需要重签一次）；</li>
+        <li>或者把未签名的 .ipa 用 Sideloadly / AltStore 这类工具自签安装；</li>
+        <li>付费开发者账号签名后，可以用 TestFlight 分发，最省事。</li>
+      </ol>
+      <p class="muted">在拿到签名之前，iPhone / iPad 可以继续用 Safari 打开网页版，点「分享 → 添加到主屏幕」全屏玩。网页版的麻将和斗地主只能和电脑打。</p>
+    </section>
+
+    <section class="card">
+      <h2>App 里多了什么</h2>
+      <ol>
+        <li><b>完全离线</b>：所有游戏都在手机里，没网也能玩。</li>
+        <li><b>同步更新</b>：大厅右上角 ⇅，网站上有新游戏或更新时，只下载有变化的文件。</li>
+        <li><b>一起打牌</b>：斗地主 3 人、太仓麻将 4 人，同一 Wi‑Fi 或蓝牙开房间，人不够电脑补位。</li>
+      </ol>
+    </section>
+  </main>
+</body>
+</html>

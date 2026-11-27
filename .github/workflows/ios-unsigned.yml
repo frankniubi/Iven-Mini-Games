@@ -1,0 +1,51 @@
+# Builds an UNSIGNED iOS .ipa (Payload/App.app) of the 小游戏大厅 Capacitor shell and uploads it as an artifact.
+# Run it from the Actions tab ("Run workflow"), or push changes under native/.
+name: iOS unsigned IPA
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'native/**'
+      - '.github/workflows/ios-unsigned.yml'
+
+concurrency:
+  group: ios-unsigned-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: macos-latest
+    timeout-minutes: 60
+    defaults:
+      run:
+        working-directory: native
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Select latest stable Xcode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: native/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci   # native/.npmrc sets legacy-peer-deps (zeroconf plugin's Electron-only peer)
+
+      - name: Build www + cap sync ios
+        run: npm run www:ios
+
+      - name: xcodebuild Release (iphoneos, unsigned) + package IPA
+        run: bash scripts/build-ios-unsigned.sh --skip-www
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: minigames-unsigned-ipa
+          path: native/dist/minigames-unsigned.ipa
+          if-no-files-found: error
+          retention-days: 30

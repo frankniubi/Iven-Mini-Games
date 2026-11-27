@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Cleartext (plain HTTP) policy for native networking (CapacitorHttp, FileTransfer, the WebView itself).
+
+  - minigames.mcbar.cc: the content sync server only speaks plain HTTP.
+  - base-config also permits cleartext because same-Wi-Fi play talks to peers by LAN IP
+    (192.168.x.x etc.), which cannot be listed as domains here. To lock it down to the sync
+    server only, set the base-config attribute to "false".
+-->
+<network-security-config>
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">minigames.mcbar.cc</domain>
+    </domain-config>
+    <base-config cleartextTrafficPermitted="true">
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+    </base-config>
+</network-security-config>

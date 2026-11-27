@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="小游戏大厅" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="theme-color" content="#FFF8F2" id="meta-theme-color" />
+  <title>小游戏大厅 · Arcade Box</title>
+  <link rel="manifest" href="./manifest.json" />
+  <link rel="icon" type="image/svg+xml" href="./assets/icon.svg" />
+  <link rel="apple-touch-icon" href="./assets/icon.svg" />
+  <link rel="stylesheet" href="./core/hall.css" />
+</head>
+<body>
+  <div id="app" class="app-root">
+    <!-- Hall View -->
+    <div id="hall-view" class="hall-view">
+      <header class="hall-header">
+        <div class="hall-brand">
+          <div class="hall-logo" aria-hidden="true">
+            <img src="./assets/icon.svg" alt="" width="40" height="40" />
+          </div>
+          <div>
+            <h1 class="hall-title">小游戏大厅</h1>
+            <p class="hall-subtitle">随时随地 · 轻松解压游乐场</p>
+          </div>
+        </div>
+        <div class="hall-actions">
+          <button id="btn-hall-sound" class="icon-pill" aria-label="音效开关" title="音效开关">
+            <span class="icon-sound-on">🔊</span>
+          </button>
+          <button id="btn-hall-theme" class="icon-pill" aria-label="切换明暗主题" title="切换明暗主题">
+            <span class="icon-theme">☀️</span>
+          </button>
+        </div>
+      </header>
+
+      <main class="hall-main">
+        <section class="hall-hero-row" id="hall-featured-slot"></section>
+
+        <section class="hall-section">
+          <div class="section-head">
+            <h2>游戏库</h2>
+            <span class="section-badge" id="hall-game-count">1 款已就绪</span>
+          </div>
+          <div class="game-grid" id="hall-game-grid"></div>
+        </section>
+
+        <footer class="hall-footer">
+          <p>支持 iPhone / iPad 全屏畅玩 · Safari 点击分享 →「添加到主屏幕」体验更佳</p>
+        </footer>
+      </main>
+    </div>
+
+    <!-- Active Game Container -->
+    <div id="game-stage" class="game-stage hidden" aria-live="polite"></div>
+
+    <!-- Global Toast Layer -->
+    <div id="toast-layer" class="toast-layer" aria-live="polite"></div>
+  </div>
+
+  <script type="module" src="./core/hall.js?v=8"></script>
+</body>
+</html>

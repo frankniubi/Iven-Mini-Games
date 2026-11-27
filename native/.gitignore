@@ -1,0 +1,29 @@
+# dependencies / generated web bundle / build outputs
+node_modules/
+www/
+dist/
+*.log
+
+# Android (see also android/.gitignore)
+android/local.properties
+android/.gradle/
+android/.kotlin/
+android/build/
+android/app/build/
+android/app/src/main/assets/public/
+android/app/src/main/assets/capacitor.config.json
+android/app/src/main/assets/capacitor.plugins.json
+android/capacitor-cordova-android-plugins/
+
+# iOS (see also ios/.gitignore)
+ios/App/build/
+ios/App/App/public/
+ios/DerivedData/
+ios/App/CapApp-SPM/.build/
+ios/App/CapApp-SPM/symlinks/
+xcuserdata/
+
+# Signing key and its passwords stay local (back them up!): every APK must be signed with the
+# same key so updates install over older builds, so losing them means users must reinstall.
+android/app/dev-signing.keystore
+android/keystore.properties
